@@ -43,7 +43,6 @@ export const buyInit = () => {
 }
 
 export const fetchOrdersSuccess = (orders) => {
-    console.log('fetchOrdersSuccess');
     return {
         type: actionTypes.FETCH_ORDERS_SUCCESS,
         orders: orders
@@ -51,7 +50,6 @@ export const fetchOrdersSuccess = (orders) => {
 };
 
 export const fetchOrdersFail = (error) => {
-    console.log('fetchOrdersFail');
     return {
         type: actionTypes.FETCH_ORDERS_FAIL,
         error: error
@@ -59,18 +57,18 @@ export const fetchOrdersFail = (error) => {
 };
 
 export const fetchOrderStart = () => {
-    console.log('fetchOrderStart');
     return {
         type: actionTypes.FETCH_ORDERS_START
     }
 };
 
 
-export const fetchOrders = (token) => {
+export const fetchOrders = (token, userId) => {
     return dispatch  => {
         dispatch( fetchOrderStart() );
+        const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`;
 
-        axios.get(`/orders.json?auth=${token}`)
+        axios.get(`/orders.json${queryParams}`)
         .then( response => {
             const fetchedOrders = [];
             for ( let key in response.data) {

@@ -3,14 +3,12 @@ import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
 export const authStart = () => {
-    console.log('authStart');
     return {
         type: actionTypes.AUTH_START
     };
 };
 
 export const authSuccess = (token, userId) => {
-    console.log('authSuccess');
     return {
         type: actionTypes.AUTH_SUCCESS,
         idToken: token,
@@ -19,7 +17,6 @@ export const authSuccess = (token, userId) => {
 };
 
 export const authFail = (error) => {
-    console.log('authFail');
     return {
         type: actionTypes.AUTH_FAIL,
         error: error
@@ -59,6 +56,7 @@ export const auth = (email, password, isSignUp) => {
         .then( response => {
             console.log(response);
             const expirationDate = new Date(new Date().getTime() + (response.data.expiresIn * 1000));
+            
             localStorage.setItem('token',response.data.idToken);
             localStorage.setItem('userId',response.data.localId);
             localStorage.setItem('expirationDate',expirationDate);
@@ -66,7 +64,6 @@ export const auth = (email, password, isSignUp) => {
             dispatch(checkAuthTimeout(response.data.expiresIn));
         })
         .catch( error => {
-            console.log(error);
             dispatch(authFail(error.response.data.error));
         });
     };
@@ -89,7 +86,7 @@ export const authCheckState = () => {
             if ( expirationDate <= Date() ) {
                 dispatch( logout() );
             } else {
-                const userId = new Date(localStorage.getItem('userId'));
+                const userId = localStorage.getItem('userId');
                 dispatch( authSuccess(token,userId) );
                 dispatch( checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ) );
             }

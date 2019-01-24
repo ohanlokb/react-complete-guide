@@ -20,7 +20,6 @@ class Layout extends Component {
     }
 
     render() {
-        console.log('[Layout] isAuth',this.props.isAuthenticated);
         return (
             <>
                 <Toolbar 

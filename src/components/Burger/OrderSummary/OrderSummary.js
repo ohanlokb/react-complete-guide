@@ -3,12 +3,6 @@ import React, {Component} from 'react';
 import Button from '../../UI/Button/Button';
 
 class OrderSummary extends Component {
-    //this was changed from functional component to class to show lifecycle events only
-    // it doesnt need to be a class.
-    componentWillUpdate() {
-        console.log('[OrderSummary] componentWillUpdate',);
-    };
-
     render () {
         const ingredientSummary = Object.keys(this.props.ingredients)
         .map( igKey => {

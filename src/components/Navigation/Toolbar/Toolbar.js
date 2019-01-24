@@ -6,7 +6,6 @@ import NavigationItems from '../NavigationItems/NavigationItems';
 import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 
 const toolbar = (props) => { 
-    console.log('[toolbar] isAuth',props.isAuth);
     return (
         <header className={classes.Toolbar}>
             <DrawerToggle clicked={props.toggleSideDrawer}/>
